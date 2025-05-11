@@ -2,9 +2,6 @@
 
 namespace WpfApp1.View.UserControls
 {
-    /// <summary>
-    /// Interakční logika pro UserControl1.xaml
-    /// </summary>
     public partial class CalendarInfo : UserControl
     {
         public CalendarInfo()
@@ -13,7 +10,7 @@ namespace WpfApp1.View.UserControls
         }
 
 
-        private string calendarText;
+        private string calendarText = "Placeholder";
 
         public string CalendarText
         {
