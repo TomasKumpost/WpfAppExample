@@ -1,0 +1,46 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        xmlns:UserControls="clr-namespace:WpfApp1.View.UserControls"
+        mc:Ignorable="d"
+        Title="Aplikace na počítání prodaných aut" Height="800" Width="1600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="87*"/>
+        </Grid.ColumnDefinitions>
+        
+        <!-- Menu Sidebar -->
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="20*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*"/>
+                    <RowDefinition Height="15*"/>
+                    <RowDefinition Height="25*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="uploadButton" Margin="10,10,10,5" Content="Nahrát soubor" Click="UploadButton_Click" />
+                <TextBlock Grid.Row="1" Text="Vybraný soubor:" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="fileName" Grid.Row="2" Text="" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            </Grid>
+            <Button Grid.Row="1" x:Name="startButton" Margin="10,5,10,0" Content="Spustit Program" Click="StartButton_Click"/>
+            <UserControls:CalendarInfo x:Name="calendarStart" Grid.Row="2" CalendarText="Zvolený začátek prodeje:" />
+            <UserControls:CalendarInfo x:Name="calendarEnd" Grid.Row="3" CalendarText="Zvolený konec prodeje:" />
+        </Grid>
+        <!-- List Content -->
+        <Grid Grid.Column="1">
+            <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" Visibility="Hidden" CanUserAddRows="False" HeadersVisibility="Column" ColumnWidth="40*"/>
+            <TextBlock x:Name="errorMessage" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="50" Foreground="Red"/>
+        </Grid>
+    </Grid>
+</Window>
