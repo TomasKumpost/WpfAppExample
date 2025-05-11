@@ -10,7 +10,7 @@ namespace WpfApp1
             XElement db = XElement.Load(path);
             List<string> usedNames = [];
 
-            if (db.HasElements && startDate.HasValue && endDate.HasValue)
+            if (db.HasElements)
             {
                 List<CarSales> carSales = [];
                 DataTable dataTable = new();
@@ -23,28 +23,36 @@ namespace WpfApp1
 
                 foreach (var car in db.Elements())
                 {
-                    string name = car.Element("name").Value;
-                    string dph = car.Element("dph").Value;
-                    string price = car.Element("price").Value;
-                    DateTime date = DateTime.Parse(car.Element("date").Value);
+                    try
+                    {
+                        string name = car.Element("name").Value;
+                        string dph = car.Element("dph").Value;
+                        string price = car.Element("price").Value;
+                        DateTime date = DateTime.Parse(car.Element("date").Value);
 
-                    if (!usedNames.Contains(name))
-                    {
-                        CarSales newCarSale = new(name);
-                        if (date >= startDate && date <= endDate)
+                        if (!usedNames.Contains(name))
                         {
-                            newCarSale.AddSale(dph, price);
+                            CarSales newCarSale = new(name);
+                            if (date >= startDate && date <= endDate)
+                            {
+                                newCarSale.AddSale(dph, price);
+                            }
+                            carSales.Add(newCarSale);
+                            usedNames.Add(name);
                         }
-                        carSales.Add(newCarSale);
-                        usedNames.Add(name);
-                    }
-                    else
-                    {
-                        if (date >= startDate && date <= endDate)
+                        else
                         {
-                            carSales.Find(sale => sale.GetName() == name)?.AddSale(dph, price);
+                            if (date >= startDate && date <= endDate)
+                            {
+                                carSales.Find(sale => sale.GetName() == name)?.AddSale(dph, price);
+                            }
                         }
                     }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        return null;
+                    }   
                 }
                 foreach (var sale in carSales)
                 {
